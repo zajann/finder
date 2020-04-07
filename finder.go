@@ -23,5 +23,17 @@ func URL(str string) []string {
 			filteredURL = append(filteredURL, l)
 		}
 	}
-	return filteredURL
+	return deduplicate(filteredURL)
+}
+
+func deduplicate(list []string) []string {
+	keys := make(map[string]struct{})
+	var result []string
+	for _, l := range list {
+		if _, ok := keys[l]; !ok {
+			keys[l] = struct{}{}
+			result = append(result, l)
+		}
+	}
+	return result
 }
